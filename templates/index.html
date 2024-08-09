@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script>
+        function openForm(formId) {
+            document.getElementById(formId).style.display = 'block';
+        }
+
+        function closeForm(formId) {
+            document.getElementById(formId).style.display = 'none';
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>User CRUD Flask Application</h1>
+        <button onclick="openForm('addUserForm')">Add User</button>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td>{{ user['name'] }}</td>
+                    <td>{{ user['email'] }}</td>
+                    <td>
+                        <button onclick="openForm('editUserForm{{ user['_id'] }}')">Edit</button>
+                        <form action="{{ url_for('delete_user', id=user['_id']) }}" method="POST" style="display:inline;">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                <!-- Edit User Pop-up Form -->
+                <div id="editUserForm{{ user['_id'] }}" class="form-popup" style="display:none;">
+                    <form action="{{ url_for('edit_user', id=user['_id']) }}" method="POST" class="form-container">
+                        <h2>Edit User: Require Password</h2>
+                        <label for="password"><b>Password</b></label>
+                        <input type="password" name="password" required>
+                        
+                        <label for="name"><b>Name</b></label>
+                        <input type="text" name="name" value="{{ user['name'] }}" required>
+                        
+                        <label for="email"><b>Email</b></label>
+                        <input type="email" name="email" value="{{ user['email'] }}" required>
+                        
+                        <button type="submit" class="btn">Save</button>
+                        <button type="button" class="btn cancel" onclick="closeForm('editUserForm{{ user['_id'] }}')">Close</button>
+                    </form>
+                </div>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Add User Pop-up Form -->
+    <div id="addUserForm" class="form-popup" style="display:none;">
+        <form action="{{ url_for('create_user') }}" method="POST" class="form-container">
+            <h2>Add User</h2>
+            <label for="name"><b>Name</b></label>
+            <input type="text" name="name" required>
+
+            <label for="email"><b>Email</b></label>
+            <input type="email" name="email" required>
+
+            <label for="password"><b>Password</b></label>
+            <input type="password" name="password" required>
+
+            <button type="submit" class="btn">Add</button>
+            <button type="button" class="btn cancel" onclick="closeForm('addUserForm')">Close</button>
+        </form>
+    </div>
+</body>
+</html>
