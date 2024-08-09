@@ -7,8 +7,6 @@ This is a simple CRUD (Create, Read, Update, Delete) application developed using
 ## Snapshots of Application
 
 ![AllUser](https://github.com/user-attachments/assets/32f9d9ee-3cfe-4bf5-b7af-1bad722cf7af?width=20&height=20)
-![AddUser](https://github.com/user-attachments/assets/4d6d5588-64dd-464b-8162-d1ab294d44d8?width=20&height=20)
-![Edit](https://github.com/user-attachments/assets/96b10ac0-d407-4061-a346-9d7a0af03283?width=20&height=20)
 
 
 ## Features
